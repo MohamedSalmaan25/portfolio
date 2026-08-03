@@ -76,10 +76,10 @@ const projects = [
     link: "https://apihitter-wwsk.onrender.com/",
   },
   {
-    title: "Nodot Academy",
-    description: "Learning platform for Nodot Academy.",
-    image: "/assets/img/portfolio/nodot.png",
-    link: "https://academy.nodot.in/",
+    title: "Lite UI Design System",
+    description: "A lightweight, reusable UI design system.",
+    image: "/assets/img/portfolio/branding-1.png",
+    link: "https://liteui.netlify.app/",
   },
 ];
 
