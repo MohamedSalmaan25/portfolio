@@ -497,24 +497,45 @@ function App(props) {
           </div>
           
           <div className="experience-container">
-            <Timeline position="alternate">
+            <Timeline
+              position="alternate"
+              sx={{
+                px: { xs: 0, sm: 2 },
+                // On mobile, force left alignment and remove extra left padding
+                [`@media (max-width: 768px)`]: {
+                  '& .MuiTimelineItem-root': {
+                    flexDirection: 'row !important',
+                  },
+                  '& .MuiTimelineItem-root:before': {
+                    flex: 0,
+                    padding: 0,
+                  },
+                  '& .MuiTimelineContent-root': {
+                    textAlign: 'left !important',
+                    paddingLeft: '16px',
+                    paddingRight: '4px',
+                  },
+                }
+              }}
+            >
               {experience.map((item, index) => (
                 <TimelineItem key={index}>
                   <TimelineSeparator>
                     <TimelineDot sx={{ bgcolor: 'var(--brand)', p: 1 }} />
                     {index < experience.length - 1 && <TimelineConnector sx={{ bgcolor: 'var(--brand-2)' }} />}
                   </TimelineSeparator>
-                  <TimelineContent sx={{ py: '12px', px: 2 }}>
+                  <TimelineContent sx={{ py: '12px', px: { xs: 1, sm: 2 } }}>
                     <div className="timeline-card">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                        <h3>{item.company}</h3>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                        <h3 style={{ margin: 0 }}>{item.company}</h3>
                         <span style={{ 
                           fontSize: '0.8rem', 
                           padding: '0.25rem 0.75rem', 
                           border: '1px solid var(--brand)', 
                           color: 'var(--brand)', 
                           borderRadius: '999px',
-                          fontWeight: 600
+                          fontWeight: 600,
+                          whiteSpace: 'nowrap'
                         }}>
                           {item.type}
                         </span>
