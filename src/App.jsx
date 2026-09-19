@@ -168,11 +168,11 @@ function ScrollTop(props) {
 
 function App(props) {
   const [showResume, setShowResume] = useState(false);
-  
+
   // Theme State (Default Dark)
   const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem('portfolio-theme');
-    return saved ? saved === 'dark' : true;
+    const saved = localStorage.getItem("portfolio-theme");
+    return saved ? saved === "dark" : true;
   });
 
   // Typing Effect State
@@ -192,8 +192,11 @@ function App(props) {
 
   // Theme effect
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light');
+    document.documentElement.setAttribute(
+      "data-theme",
+      isDark ? "dark" : "light",
+    );
+    localStorage.setItem("portfolio-theme", isDark ? "dark" : "light");
   }, [isDark]);
 
   // Typing Effect effect
@@ -209,16 +212,19 @@ function App(props) {
       return;
     }
 
-    const timeout = setTimeout(() => {
-      setSubIndex((prev) => prev + (isDeleting ? -1 : 1));
-    }, Math.max(isDeleting ? 50 : 100, Math.random() * 150));
+    const timeout = setTimeout(
+      () => {
+        setSubIndex((prev) => prev + (isDeleting ? -1 : 1));
+      },
+      Math.max(isDeleting ? 50 : 100, Math.random() * 150),
+    );
 
     return () => clearTimeout(timeout);
   }, [subIndex, isDeleting, roleIndex]);
 
   // Scroll spy effect - fast scroll listener
   useEffect(() => {
-    const sectionIds = navLinks.map(link => link.href.substring(1));
+    const sectionIds = navLinks.map((link) => link.href.substring(1));
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -251,7 +257,8 @@ function App(props) {
   // Tilt effect handler
   const handleMouseMove = (e) => {
     if (!imageRef.current) return;
-    const { left, top, width, height } = imageRef.current.getBoundingClientRect();
+    const { left, top, width, height } =
+      imageRef.current.getBoundingClientRect();
     const x = (e.clientX - left) / width - 0.5;
     const y = (e.clientY - top) / height - 0.5;
     setTilt({ x: y * 20, y: -x * 20 }); // Max 10 deg tilt
@@ -264,7 +271,7 @@ function App(props) {
   return (
     <div className="site-shell">
       {/* Hero anchor sentinel – sits at the very top, zero height */}
-      <div id="home" style={{ position: 'absolute', top: 0, height: 0 }} />
+      <div id="home" style={{ position: "absolute", top: 0, height: 0 }} />
 
       {/* Navbar */}
       <header className="topbar">
@@ -289,22 +296,31 @@ function App(props) {
               </li>
             ))}
           </ul>
-          
-          <Tooltip title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}>
-            <button className="theme-toggle-btn" onClick={toggleTheme} aria-label="Toggle Theme">
+
+          <Tooltip
+            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            <button
+              className="theme-toggle-btn"
+              onClick={toggleTheme}
+              aria-label="Toggle Theme"
+            >
               {isDark ? <LightModeIcon /> : <DarkModeIcon />}
             </button>
           </Tooltip>
         </nav>
 
         {/* Mobile Nav Toggle */}
-        <div className="mobile-only" style={{ alignItems: 'center', gap: '0.5rem' }}>
+        <div
+          className="mobile-only"
+          style={{ alignItems: "center", gap: "0.5rem" }}
+        >
           <IconButton
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
           >
-            <MenuIcon sx={{ color: 'var(--text)' }} />
+            <MenuIcon sx={{ color: "var(--text)" }} />
           </IconButton>
         </div>
       </header>
@@ -319,16 +335,34 @@ function App(props) {
           sx: { width: 260, background: "var(--surface)", p: 2 },
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <button className="theme-toggle-btn" onClick={toggleTheme} style={{ display: 'flex', gap: '8px', color: 'var(--text)' }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <button
+            className="theme-toggle-btn"
+            onClick={toggleTheme}
+            style={{ display: "flex", gap: "8px", color: "var(--text)" }}
+          >
             {isDark ? <LightModeIcon /> : <DarkModeIcon />}
-            <span style={{ fontWeight: 600 }}>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+            <span style={{ fontWeight: 600 }}>
+              {isDark ? "Light Mode" : "Dark Mode"}
+            </span>
           </button>
-          <IconButton onClick={handleDrawerToggle} sx={{ color: 'var(--text)' }}>
+          <IconButton
+            onClick={handleDrawerToggle}
+            sx={{ color: "var(--text)" }}
+          >
             <CloseIcon />
           </IconButton>
         </div>
-        <ul className="nav-list" style={{ flexDirection: "column", gap: "2rem", marginTop: "2rem" }}>
+        <ul
+          className="nav-list"
+          style={{ flexDirection: "column", gap: "2rem", marginTop: "2rem" }}
+        >
           {navLinks.map((link) => (
             <li key={link.href} style={{ width: "100%", textAlign: "center" }}>
               <a
@@ -358,9 +392,9 @@ function App(props) {
               </span>
             </div>
             <p className="description">
-              I am a Computer Science graduate focused on modern web development,
-              user-centered interfaces, and practical solutions. I build digital
-              experiences that look great and work perfectly.
+              I am a Computer Science graduate focused on modern web
+              development, user-centered interfaces, and practical solutions. I
+              build digital experiences that look great and work perfectly.
             </p>
             <div className="hero-actions">
               <a href="#projects" className="btn-primary-custom">
@@ -371,19 +405,19 @@ function App(props) {
               </a>
             </div>
           </div>
-          <div 
+          <div
             className="hero-visual reveal delay-1"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             ref={imageRef}
           >
-            <div 
+            <div
               className="image-wrapper"
               style={{
                 transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
               }}
             >
-              <img src="/assets/img/my-profile-img.jpg" alt="Mohamed Salmaan" />
+              <img src="/assets/img/my-profile-img.png" alt="Mohamed Salmaan" />
               <div className="floating-badge">
                 <span>👋</span> Open to work
               </div>
@@ -395,30 +429,48 @@ function App(props) {
         <section id="about" className="section reveal">
           <div className="section-header">
             <h2>About Me</h2>
-            <p>Passionate and curious tech enthusiast with a strong foundation in Computer Science.</p>
+            <p>
+              Passionate and curious tech enthusiast with a strong foundation in
+              Computer Science.
+            </p>
           </div>
           <div className="about-content">
             <div className="about-text">
               <p>
                 Hello! I am Mohamed Salmaan. I enjoy building real-world
                 applications, exploring new technologies, and turning ideas into
-                digital experiences. My goal is to keep learning and keep building
-                software that matters.
+                digital experiences. My goal is to keep learning and keep
+                building software that matters.
               </p>
-              <br/>
+              <br />
               <p>
                 I love collaborating on meaningful projects that help users,
                 improve processes, or deliver something creative and impactful.
               </p>
             </div>
-            <div className="about-cards-grid" style={{ display: 'grid', gap: '1rem' }}>
+            <div
+              className="about-cards-grid"
+              style={{ display: "grid", gap: "1rem" }}
+            >
               <div className="about-card">
                 <h3>Profile Snapshot</h3>
                 <ul className="about-list">
-                  <li><CheckCircleIcon fontSize="small" /> <span>DOB:</span> 25 August 2004</li>
-                  <li><CheckCircleIcon fontSize="small" /> <span>Degree:</span> B.Tech (CSE)</li>
-                  <li><CheckCircleIcon fontSize="small" /> <span>University:</span> BSA Crescent Institute</li>
-                  <li><CheckCircleIcon fontSize="small" /> <span>City:</span> Chennai, Tamil Nadu</li>
+                  <li>
+                    <CheckCircleIcon fontSize="small" /> <span>DOB:</span> 25
+                    August 2004
+                  </li>
+                  <li>
+                    <CheckCircleIcon fontSize="small" /> <span>Degree:</span>{" "}
+                    B.Tech (CSE)
+                  </li>
+                  <li>
+                    <CheckCircleIcon fontSize="small" />{" "}
+                    <span>University:</span> BSA Crescent Institute
+                  </li>
+                  <li>
+                    <CheckCircleIcon fontSize="small" /> <span>City:</span>{" "}
+                    Chennai, Tamil Nadu
+                  </li>
                 </ul>
               </div>
             </div>
@@ -434,7 +486,13 @@ function App(props) {
           <div className="skills-grid">
             {skillGroups.map((group) => (
               <div key={group.title} className="skill-category-card">
-                <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <h3
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                  }}
+                >
                   {group.icon} {group.title}
                 </h3>
                 <div className="skill-items">
@@ -444,16 +502,18 @@ function App(props) {
                         <span className="skill-name">{skill.name}</span>
                         <span className="skill-level">{skill.level}%</span>
                       </div>
-                      <LinearProgress 
-                        variant="determinate" 
-                        value={skill.level} 
-                        sx={{ 
-                          mt: 1, 
-                          height: 6, 
+                      <LinearProgress
+                        variant="determinate"
+                        value={skill.level}
+                        sx={{
+                          mt: 1,
+                          height: 6,
                           borderRadius: 3,
-                          backgroundColor: 'var(--line)',
-                          '& .MuiLinearProgress-bar': { backgroundColor: 'var(--brand)' }
-                        }} 
+                          backgroundColor: "var(--line)",
+                          "& .MuiLinearProgress-bar": {
+                            backgroundColor: "var(--brand)",
+                          },
+                        }}
                       />
                     </div>
                   ))}
@@ -464,17 +524,28 @@ function App(props) {
         </section>
 
         {/* Resume Section */}
-        <section id="resume" className="section reveal" style={{ textAlign: 'center' }}>
+        <section
+          id="resume"
+          className="section reveal"
+          style={{ textAlign: "center" }}
+        >
           <div className="section-header">
             <h2>Resume</h2>
             <p>Review my experience and qualifications.</p>
           </div>
-          
-          <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+
+          <div
+            style={{
+              display: "flex",
+              gap: "1.5rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
             <button
               className="btn-ghost-custom"
               onClick={() => setShowResume(true)}
-              style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}
+              style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
             >
               <DescriptionIcon /> View Full Resume
             </button>
@@ -482,7 +553,7 @@ function App(props) {
               className="btn-primary-custom"
               href="/resume/resume%20webdev%20new.pdf"
               download
-              style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}
+              style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
             >
               Download PDF
             </a>
@@ -495,7 +566,7 @@ function App(props) {
             <h2>Experience</h2>
             <p>My professional journey and internships.</p>
           </div>
-          
+
           <div className="experience-container">
             <Timeline
               position="alternate"
@@ -503,40 +574,53 @@ function App(props) {
                 px: { xs: 0, sm: 2 },
                 // On mobile, force left alignment and remove extra left padding
                 [`@media (max-width: 768px)`]: {
-                  '& .MuiTimelineItem-root': {
-                    flexDirection: 'row !important',
+                  "& .MuiTimelineItem-root": {
+                    flexDirection: "row !important",
                   },
-                  '& .MuiTimelineItem-root:before': {
+                  "& .MuiTimelineItem-root:before": {
                     flex: 0,
                     padding: 0,
                   },
-                  '& .MuiTimelineContent-root': {
-                    textAlign: 'left !important',
-                    paddingLeft: '16px',
-                    paddingRight: '4px',
+                  "& .MuiTimelineContent-root": {
+                    textAlign: "left !important",
+                    paddingLeft: "16px",
+                    paddingRight: "4px",
                   },
-                }
+                },
               }}
             >
               {experience.map((item, index) => (
                 <TimelineItem key={index}>
                   <TimelineSeparator>
-                    <TimelineDot sx={{ bgcolor: 'var(--brand)', p: 1 }} />
-                    {index < experience.length - 1 && <TimelineConnector sx={{ bgcolor: 'var(--brand-2)' }} />}
+                    <TimelineDot sx={{ bgcolor: "var(--brand)", p: 1 }} />
+                    {index < experience.length - 1 && (
+                      <TimelineConnector sx={{ bgcolor: "var(--brand-2)" }} />
+                    )}
                   </TimelineSeparator>
-                  <TimelineContent sx={{ py: '12px', px: { xs: 1, sm: 2 } }}>
+                  <TimelineContent sx={{ py: "12px", px: { xs: 1, sm: 2 } }}>
                     <div className="timeline-card">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-start",
+                          marginBottom: "0.5rem",
+                          flexWrap: "wrap",
+                          gap: "0.5rem",
+                        }}
+                      >
                         <h3 style={{ margin: 0 }}>{item.company}</h3>
-                        <span style={{ 
-                          fontSize: '0.8rem', 
-                          padding: '0.25rem 0.75rem', 
-                          border: '1px solid var(--brand)', 
-                          color: 'var(--brand)', 
-                          borderRadius: '999px',
-                          fontWeight: 600,
-                          whiteSpace: 'nowrap'
-                        }}>
+                        <span
+                          style={{
+                            fontSize: "0.8rem",
+                            padding: "0.25rem 0.75rem",
+                            border: "1px solid var(--brand)",
+                            color: "var(--brand)",
+                            borderRadius: "999px",
+                            fontWeight: 600,
+                            whiteSpace: "nowrap",
+                          }}
+                        >
                           {item.type}
                         </span>
                       </div>
@@ -560,28 +644,37 @@ function App(props) {
             <h2>Featured Projects</h2>
             <p>
               Some of my recent work. Visit my{" "}
-              <a href="https://github.com/salmaan-25" target="_blank" rel="noreferrer" style={{ color: 'var(--brand-2)', fontWeight: 600 }}>
+              <a
+                href="https://github.com/salmaan-25"
+                target="_blank"
+                rel="noreferrer"
+                style={{ color: "var(--brand-2)", fontWeight: 600 }}
+              >
                 GitHub
               </a>{" "}
               for more.
             </p>
           </div>
-          
+
           <div className="project-grid">
             {projects.map((project, index) => (
               <div key={index} className="project-card">
                 <div className="project-image">
                   <img src={project.image} alt={project.title} loading="lazy" />
-                  <div style={{ position: 'absolute', top: '1rem', right: '1rem' }}>
-                    <span style={{ 
-                      fontSize: '0.8rem', 
-                      padding: '0.4rem 1rem', 
-                      background: 'rgba(15, 23, 42, 0.8)', 
-                      backdropFilter: 'blur(4px)',
-                      color: 'white', 
-                      borderRadius: '999px',
-                      fontWeight: 600
-                    }}>
+                  <div
+                    style={{ position: "absolute", top: "1rem", right: "1rem" }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "0.8rem",
+                        padding: "0.4rem 1rem",
+                        background: "rgba(15, 23, 42, 0.8)",
+                        backdropFilter: "blur(4px)",
+                        color: "white",
+                        borderRadius: "999px",
+                        fontWeight: 600,
+                      }}
+                    >
                       {project.tag}
                     </span>
                   </div>
@@ -589,7 +682,12 @@ function App(props) {
                 <div className="project-content">
                   <h3 className="project-title">{project.title}</h3>
                   <p className="project-desc">{project.description}</p>
-                  <a href={project.link} target="_blank" rel="noreferrer" className="project-link">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="project-link"
+                  >
                     Visit Project <ArrowForwardIcon fontSize="small" />
                   </a>
                 </div>
@@ -603,25 +701,39 @@ function App(props) {
           <div className="section-header">
             <h2>Get In Touch</h2>
           </div>
-          
+
           <div className="contact-grid">
             <Tooltip title="Send me an email" arrow placement="top">
-              <a href="mailto:mohamed.salmaan2004@gmail.com" className="contact-card">
-                <div className="contact-icon"><EmailIcon fontSize="large" /></div>
+              <a
+                href="mailto:mohamed.salmaan2004@gmail.com"
+                className="contact-card"
+              >
+                <div className="contact-icon">
+                  <EmailIcon fontSize="large" />
+                </div>
                 <span>mohamed.salmaan2004@gmail.com</span>
               </a>
             </Tooltip>
-            
+
             <Tooltip title="Give me a call" arrow placement="top">
               <a href="tel:+916379565931" className="contact-card">
-                <div className="contact-icon"><PhoneIcon fontSize="large" /></div>
+                <div className="contact-icon">
+                  <PhoneIcon fontSize="large" />
+                </div>
                 <span>+91 63795 65931</span>
               </a>
             </Tooltip>
-            
+
             <Tooltip title="Connect on LinkedIn" arrow placement="top">
-              <a href="https://www.linkedin.com/in/mohamed-salmaan-5234432b3" target="_blank" rel="noreferrer" className="contact-card">
-                <div className="contact-icon"><LinkedInIcon fontSize="large" /></div>
+              <a
+                href="https://www.linkedin.com/in/mohamed-salmaan-5234432b3"
+                target="_blank"
+                rel="noreferrer"
+                className="contact-card"
+              >
+                <div className="contact-icon">
+                  <LinkedInIcon fontSize="large" />
+                </div>
                 <span>LinkedIn Profile</span>
               </a>
             </Tooltip>
@@ -640,24 +752,62 @@ function App(props) {
         maxWidth="lg"
         fullWidth
         PaperProps={{
-          sx: { borderRadius: 'var(--radius-lg)', bgcolor: 'var(--surface)' }
+          sx: { borderRadius: "var(--radius-lg)", bgcolor: "var(--surface)" },
         }}
       >
-        <div style={{ padding: '1rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--line)', backgroundColor: 'var(--surface)' }}>
-          <h2 style={{ margin: 0, fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--text)' }}>Resume Preview</h2>
-          <Button variant="outlined" onClick={() => setShowResume(false)} sx={{ color: 'var(--text)', borderColor: 'var(--line)', borderRadius: '999px', '&:hover': { borderColor: 'var(--text)' } }}>
+        <div
+          style={{
+            padding: "1rem 1.5rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottom: "1px solid var(--line)",
+            backgroundColor: "var(--surface)",
+          }}
+        >
+          <h2
+            style={{
+              margin: 0,
+              fontFamily: "var(--font-display)",
+              fontSize: "1.25rem",
+              color: "var(--text)",
+            }}
+          >
+            Resume Preview
+          </h2>
+          <Button
+            variant="outlined"
+            onClick={() => setShowResume(false)}
+            sx={{
+              color: "var(--text)",
+              borderColor: "var(--line)",
+              borderRadius: "999px",
+              "&:hover": { borderColor: "var(--text)" },
+            }}
+          >
             Close
           </Button>
         </div>
-        <DialogContent sx={{ p: 0, height: '70vh' }}>
+        <DialogContent sx={{ p: 0, height: "70vh" }}>
           <iframe
             title="Resume PDF"
             src="/resume/resume%20webdev%20new.pdf"
-            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+            style={{
+              width: "100%",
+              height: "100%",
+              border: "none",
+              display: "block",
+            }}
           />
         </DialogContent>
-        <div style={{ padding: '0.75rem 1.5rem', borderTop: '1px solid var(--line)', background: 'var(--bg)' }}>
-          <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--muted)' }}>
+        <div
+          style={{
+            padding: "0.75rem 1.5rem",
+            borderTop: "1px solid var(--line)",
+            background: "var(--bg)",
+          }}
+        >
+          <p style={{ margin: 0, fontSize: "0.875rem", color: "var(--muted)" }}>
             If the PDF is not visible yet, place your file in public/resume/.
           </p>
         </div>
@@ -665,7 +815,15 @@ function App(props) {
 
       {/* Scroll to top FAB */}
       <ScrollTop {...props}>
-        <Fab size="medium" aria-label="scroll back to top" sx={{ bgcolor: 'var(--brand)', color: 'white', '&:hover': { bgcolor: 'var(--brand-light)' } }}>
+        <Fab
+          size="medium"
+          aria-label="scroll back to top"
+          sx={{
+            bgcolor: "var(--brand)",
+            color: "white",
+            "&:hover": { bgcolor: "var(--brand-light)" },
+          }}
+        >
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>
