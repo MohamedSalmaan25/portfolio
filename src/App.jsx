@@ -62,8 +62,8 @@ const skillGroups = [
     title: "Backend",
     icon: <StorageIcon />,
     skills: [
-      { name: "Django", level: 75 },
-      { name: "Node.js", level: 70 },
+      { name: "Django", level: 80 },
+      { name: "Node.js", level: 80 },
       { name: "Python", level: 85 },
     ],
   },
@@ -104,6 +104,13 @@ const experience = [
 ];
 
 const projects = [
+  {
+    title: "Takhtit",
+    description: "Full-stack project management tool built with Django REST Framework and React, supporting project, sprint, and ticket tracking with role-based access.",
+    image: "/assets/img/portfolio/logo-takhtit.png",
+    link: "https://takhtitt.netlify.app/",
+    tag: "Full Stack",
+  },
   {
     title: "Weather Hub",
     description: "Find current and historical weather insights.",
