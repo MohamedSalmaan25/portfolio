@@ -66,6 +66,7 @@ const skillGroups = [
       { name: "Django", level: 80 },
       { name: "Node.js", level: 80 },
       { name: "Python", level: 85 },
+      { name: "REST APIs", level: 80 },
     ],
   },
   {
@@ -75,7 +76,6 @@ const skillGroups = [
       { name: "PostgreSQL", level: 70 },
       { name: "MongoDB", level: 75 },
       { name: "Git", level: 90 },
-      { name: "REST APIs", level: 85 },
     ],
   },
 ];
@@ -174,7 +174,7 @@ const resumes = [
 
 const rotatingRoles = [
   "Full Stack Web Developer",
-  "Data Analyst",
+  "AI Engineer",
   "Freelancer",
 ];
 
