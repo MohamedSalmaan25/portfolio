@@ -119,13 +119,13 @@ const projects = [
     link: "https://takhtitt.netlify.app/",
     tag: "Full Stack",
   },
-  {
-    title: "Weather Hub",
-    description: "Find current and historical weather insights.",
-    image: "/assets/img/portfolio/app-1.jpg",
-    link: "https://weatherrhub.netlify.app",
-    tag: "React",
-  },
+  // {
+  //   title: "Weather Hub",
+  //   description: "Find current and historical weather insights.",
+  //   image: "/assets/img/portfolio/app-1.jpg",
+  //   link: "https://weatherrhub.netlify.app",
+  //   tag: "React",
+  // },
   {
     title: "Pet-Zone",
     description: "E-commerce platform for pet care essentials.",
