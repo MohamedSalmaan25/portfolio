@@ -26,6 +26,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import DescriptionIcon from "@mui/icons-material/Description";
+import DownloadIcon from "@mui/icons-material/Download";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -105,6 +106,13 @@ const experience = [
 
 const projects = [
   {
+    title: "Knowledge Assistant",
+    description: "AI-powered learning platform where you upload your study materials, ask questions directly from them, and take generated tests to check your understanding.",
+    image: "/assets/img/portfolio/knowledge-assistant.png",
+    link: "https://knowledgeassistantt.netlify.app/",
+    tag: "AI + Full Stack",
+  },
+  {
     title: "Takhtit",
     description: "Full-stack project management tool built with Django REST Framework and React, supporting project, sprint, and ticket tracking with role-based access.",
     image: "/assets/img/portfolio/logo-takhtit.png",
@@ -141,6 +149,29 @@ const projects = [
   },
 ];
 
+const resumes = [
+  {
+    id: "fullstack",
+    role: "Full Stack Developer",
+    blurb:
+      "End-to-end web application development — responsive React interfaces backed by Django and Node.js REST APIs.",
+    file: "/resume/resume%20webdev%20new.pdf",
+    icon: <CodeIcon fontSize="large" />,
+    accent: "brand",
+    tags: ["React", "Django", "Node.js", "REST APIs"],
+  },
+  {
+    id: "ai-engineer",
+    role: "AI Engineer",
+    blurb:
+      "AI-powered product development — LLM integrations, retrieval pipelines, and Python-based ML workflows.",
+    file: "/resume/resume%20ai%20engineer.pdf",
+    icon: <AutoAwesomeIcon fontSize="large" />,
+    accent: "violet",
+    tags: ["Python", "LLMs", "RAG", "Automation"],
+  },
+];
+
 const rotatingRoles = [
   "Full Stack Web Developer",
   "Data Analyst",
@@ -174,7 +205,16 @@ function ScrollTop(props) {
 }
 
 function App(props) {
-  const [showResume, setShowResume] = useState(false);
+  // Resume state: which resume is previewed, and whether the dialog is open
+  const [previewId, setPreviewId] = useState(resumes[0].id);
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const previewResume =
+    resumes.find((resume) => resume.id === previewId) || resumes[0];
+
+  const openResume = (resume) => {
+    setPreviewId(resume.id);
+    setResumeOpen(true);
+  };
 
   // Theme State (Default Dark)
   const [isDark, setIsDark] = useState(() => {
@@ -531,39 +571,56 @@ function App(props) {
         </section>
 
         {/* Resume Section */}
-        <section
-          id="resume"
-          className="section reveal"
-          style={{ textAlign: "center" }}
-        >
+        <section id="resume" className="section reveal">
           <div className="section-header">
             <h2>Resume</h2>
-            <p>Review my experience and qualifications.</p>
+            <p>
+              Two resumes, two specializations.
+            </p>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "1.5rem",
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            <button
-              className="btn-ghost-custom"
-              onClick={() => setShowResume(true)}
-              style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
-            >
-              <DescriptionIcon /> View Full Resume
-            </button>
-            <a
-              className="btn-primary-custom"
-              href="/resume/resume%20webdev%20new.pdf"
-              download
-              style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
-            >
-              Download PDF
-            </a>
+          <div className="resume-grid">
+            {resumes.map((resume) => (
+              <div key={resume.id} className="resume-card">
+                <div className="resume-card-head">
+                  <div
+                    className={`resume-icon${
+                      resume.accent === "violet" ? " resume-icon--violet" : ""
+                    }`}
+                  >
+                    {resume.icon}
+                  </div>
+                  <div>
+                    <h3>{resume.role}</h3>
+                    <span className="resume-format">PDF Resume</span>
+                  </div>
+                </div>
+
+                <p className="resume-blurb">{resume.blurb}</p>
+
+                <div className="resume-tags">
+                  {resume.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+
+                <div className="resume-actions">
+                  <button
+                    className="btn-ghost-custom"
+                    onClick={() => openResume(resume)}
+                  >
+                    <DescriptionIcon fontSize="small" /> View
+                  </button>
+                  <a
+                    className="btn-primary-custom"
+                    href={resume.file}
+                    download
+                  >
+                    <DownloadIcon fontSize="small" /> Download
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -754,8 +811,8 @@ function App(props) {
 
       {/* Resume Dialog */}
       <Dialog
-        open={showResume}
-        onClose={() => setShowResume(false)}
+        open={resumeOpen}
+        onClose={() => setResumeOpen(false)}
         maxWidth="lg"
         fullWidth
         PaperProps={{
@@ -768,37 +825,66 @@ function App(props) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            gap: "1rem",
+            flexWrap: "wrap",
             borderBottom: "1px solid var(--line)",
             backgroundColor: "var(--surface)",
           }}
         >
-          <h2
-            style={{
-              margin: 0,
-              fontFamily: "var(--font-display)",
-              fontSize: "1.25rem",
-              color: "var(--text)",
-            }}
-          >
-            Resume Preview
-          </h2>
-          <Button
-            variant="outlined"
-            onClick={() => setShowResume(false)}
-            sx={{
-              color: "var(--text)",
-              borderColor: "var(--line)",
-              borderRadius: "999px",
-              "&:hover": { borderColor: "var(--text)" },
-            }}
-          >
-            Close
-          </Button>
+          <div>
+            <h2
+              style={{
+                margin: 0,
+                fontFamily: "var(--font-display)",
+                fontSize: "1.25rem",
+                color: "var(--text)",
+              }}
+            >
+              {previewResume.role} Resume
+            </h2>
+            <p
+              style={{
+                margin: "0.25rem 0 0",
+                fontSize: "0.85rem",
+                color: "var(--muted)",
+              }}
+            >
+              Preview below, or download a copy for later.
+            </p>
+          </div>
+          <div style={{ display: "flex", gap: "0.75rem" }}>
+            <Button
+              variant="contained"
+              href={previewResume.file}
+              download
+              startIcon={<DownloadIcon />}
+              sx={{
+                bgcolor: "var(--brand)",
+                borderRadius: "999px",
+                "&:hover": { bgcolor: "var(--brand-light)" },
+              }}
+            >
+              Download
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => setResumeOpen(false)}
+              sx={{
+                color: "var(--text)",
+                borderColor: "var(--line)",
+                borderRadius: "999px",
+                "&:hover": { borderColor: "var(--text)" },
+              }}
+            >
+              Close
+            </Button>
+          </div>
         </div>
         <DialogContent sx={{ p: 0, height: "70vh" }}>
           <iframe
-            title="Resume PDF"
-            src="/resume/resume%20webdev%20new.pdf"
+            key={previewResume.file}
+            title={`${previewResume.role} Resume PDF`}
+            src={previewResume.file}
             style={{
               width: "100%",
               height: "100%",
@@ -814,9 +900,6 @@ function App(props) {
             background: "var(--bg)",
           }}
         >
-          <p style={{ margin: 0, fontSize: "0.875rem", color: "var(--muted)" }}>
-            If the PDF is not visible yet, place your file in public/resume/.
-          </p>
         </div>
       </Dialog>
 
